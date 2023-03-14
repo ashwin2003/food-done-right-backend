@@ -1,6 +1,5 @@
 const express = require("express");
 const kmlParser = require("parse-kml");
-const request = require("request");
 const geolib = require("geolib");
 
 const app = express();
@@ -11,7 +10,8 @@ app.get("/restaurants/:location", async (req, res) => {
     const location = req.params.location;
 
     const geocodeUrl = `https://nominatim.openstreetmap.org/search?q=${location}&format=json`;
-    const geocodeResponse = await fetch(geocodeUrl, { method: "GET" });
+    const fetchh = await import("node-fetch");
+    const geocodeResponse = await fetchh.default(geocodeUrl, { method: "GET" });
 
     if (geocodeResponse.ok) {
       const geocodeData = await geocodeResponse.json();
